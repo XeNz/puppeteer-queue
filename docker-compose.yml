@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  puppeteer-queue-amd64:
+    container_name: puppeteer-queue
+    build:
+      context: ./src/scraper/ConversationalSearchPlatform.Scraper
+      dockerfile: Dockerfile
+    ports:
+      - "8060:8060"
+    restart: always
+  
+  puppeteer-queue-arm64:
+    container_name: puppeteer-queue
+    environment:
+      ARCH: 'arm64'
+      TARGETPLATFORM: 'linux/arm64'
+    build:
+      context: .
+      args:
+        ARCH: 'arm64'
+        TARGETPLATFORM: 'linux/arm64'
+      dockerfile: Dockerfile
+    ports:
+      - "8060:8060"
+    restart: always
